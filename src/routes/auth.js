@@ -7,6 +7,18 @@ const authRoutes = Router();
 const prisma = new PrismaClient();
 const secret = process.env.JWT_SECRET;
 
+/**
+ * POST /create_user
+ * Creates a new user account
+ * @name createUser
+ * @function
+ * @param {Object} body - Request body
+ * @param {string} body.userName - Desired username
+ * @param {string} body.password - Desired password
+ * @returns {Object} Response indicating success or failure
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {string} message - Success or error message
+ */
 authRoutes.post("/create_user", async (req, res) => {
     try {
         const { userName, password } = req.body;
@@ -29,6 +41,19 @@ authRoutes.post("/create_user", async (req, res) => {
     }
 });
 
+/**
+ * POST /login
+ * Authenticates a user and returns a JWT token
+ * @name login
+ * @function
+ * @param {Object} body - Request body
+ * @param {string} body.userName - Username
+ * @param {string} body.password - Password
+ * @returns {Object} Response containing JWT token or error message
+ * @returns {string} [token] - JWT token for authenticated requests
+ * @returns {boolean} [success] - Indicates if the request was successful
+ * @returns {string} [message] - Error message if authentication fails
+ */
 authRoutes.post("/login", async (req, res) => {
     try {
         const {userName, password} = req.body;

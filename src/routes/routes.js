@@ -6,6 +6,16 @@ const {authenticateUser} = require("../middlewares/middlewares");
 const router = Router();
 const prisma = new PrismaClient();
 
+/**
+ * GET /gadgets
+ * Retrieves all gadgets or filters by status
+ * @name getGadgets
+ * @function
+ * @param {string} [query.status] - Optional status filter (Available, Deployed, Destroyed, Decommissioned)
+ * @returns {Object} Response containing list of gadgets
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {Array} data - List of gadgets with their details
+ */
 router.get('/gadgets', authenticateUser, async (req, res) => {
     try {
         const status = req.query.status;
@@ -37,6 +47,15 @@ router.get('/gadgets', authenticateUser, async (req, res) => {
     }
 })
 
+/**
+ * POST /gadgets
+ * Creates a new gadget with random name and success probability
+ * @name createGadget
+ * @function
+ * @returns {Object} Response containing the created gadget
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {Object} message - The created gadget object
+ */
 router.post('/gadgets', authenticateUser, async (req, res) => {
     try {
         let randomName = generateRandomGadgetName()
@@ -56,6 +75,19 @@ router.post('/gadgets', authenticateUser, async (req, res) => {
     }
 })
 
+/**
+ * PATCH /gadgets
+ * Updates an existing gadget's status or success probability
+ * @name updateGadget
+ * @function
+ * @param {Object} body - Request body
+ * @param {string} body.name - Name of the gadget to update
+ * @param {string} [body.status] - New status (Available, Deployed, Destroyed, Decommissioned)
+ * @param {number} [body.success] - New success probability (0-100)
+ * @returns {Object} Response containing the updated gadget
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {Object} message - The updated gadget object
+ */
 router.patch('/gadgets', authenticateUser, async (req, res) => {
     try {
         const {name, status, success} = req.body
@@ -113,6 +145,17 @@ router.patch('/gadgets', authenticateUser, async (req, res) => {
     }
 });
 
+/**
+ * DELETE /gadgets
+ * Decommissions a gadget by setting its status to Decommissioned
+ * @name deleteGadget
+ * @function
+ * @param {Object} body - Request body
+ * @param {string} body.name - Name of the gadget to decommission
+ * @returns {Object} Response containing the decommissioned gadget
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {Object} message - The decommissioned gadget object
+ */
 router.delete("/gadgets", authenticateUser, async (req, res) => {
     try {
         const {name} = req.body;
@@ -136,6 +179,18 @@ router.delete("/gadgets", authenticateUser, async (req, res) => {
     }
 });
 
+/**
+ * POST /gadgets/:id/self-destruct
+ * Triggers self-destruction of a gadget by ID
+ * @name selfDestructGadget
+ * @function
+ * @param {string} id - The ID of the gadget to self-destruct
+ * @param {Object} body - Request body
+ * @param {string} body.confirmationCode - Confirmation code required for self-destruction
+ * @returns {Object} Response containing the destroyed gadget
+ * @returns {boolean} success - Indicates if the request was successful
+ * @returns {Object} message - The destroyed gadget object
+ */
 router.post("/gadgets/:id/self-destruct", authenticateUser, async (req, res) => {
     try {
         const { id } = req.params;
@@ -160,4 +215,5 @@ router.post("/gadgets/:id/self-destruct", authenticateUser, async (req, res) => 
         res.status(500).json({success: false, message: err});
     }
 })
+
 module.exports = router;
