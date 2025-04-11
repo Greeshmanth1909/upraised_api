@@ -1,0 +1,27 @@
+{
+  "name": "upraised_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Greeshmanth1909/upraised_api.git"
+  },
+  "author": "Greeshmanth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Greeshmanth1909/upraised_api/issues"
+  },
+  "homepage": "https://github.com/Greeshmanth1909/upraised_api#readme",
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "express": "^5.1.0",
+    "unique-names-generator": "^4.7.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.6.0"
+  }
+}
