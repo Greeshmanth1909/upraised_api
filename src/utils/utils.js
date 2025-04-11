@@ -1,4 +1,5 @@
 const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
+var crypto = require('crypto');
 
 function generateRandomGadgetName() {
     const shortName = uniqueNamesGenerator({
@@ -16,7 +17,9 @@ function getRandomInt(min=0, max=100) {
 
 const isNumeric = (string) => /^\d+$/.test(string)
 
-  
+function generateHash(password) {
+    return crypto.createHash('md5').update(password).digest('hex')
+}
 
 module.exports = {
     generateRandomGadgetName,
