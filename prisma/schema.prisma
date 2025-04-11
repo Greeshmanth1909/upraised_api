@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gadget {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String    @unique
+  status    String
+  timestamp DateTime? @db.Timestamptz(6)
+  success   Int?
+}
