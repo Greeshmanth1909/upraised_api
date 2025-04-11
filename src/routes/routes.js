@@ -7,7 +7,21 @@ const prisma = new PrismaClient();
 
 router.get('/gadgets', async (req, res) => {
     try {
-        let gadgets = await prisma.gadget.findMany()
+        const status = req.query.status;
+        let gadgets;
+        if (status != null) {
+            if (!(status == "Available" || status == "Deployed" || status == "Destroyed" || status == "Decommissioned")) {
+                res.status(400).json({success: false, message: "Status parameter is an enum(Available, Deployed, Destroyed, Decommissioned)"});
+                return
+            }
+            gadgets = await prisma.gadget.findMany({
+                where: {
+                    status: status
+                }
+            });
+        } else {
+            gadgets = await prisma.gadget.findMany();
+        }
         responseObjects = []
         gadgets.forEach(gadget => {
             let name = gadget.name
