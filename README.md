@@ -61,7 +61,7 @@ GET /gadgets
 Authorization: Bearer <your_jwt_token>
 
 # Optional query parameter
-GET /gadgets?status=Available
+GET /gadgets?status=Available|Deployed|Destroyed|Decommissioned
 ```
 
 ### Create a New Gadget
