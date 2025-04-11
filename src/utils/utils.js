@@ -24,5 +24,6 @@ function generateHash(password) {
 module.exports = {
     generateRandomGadgetName,
     getRandomInt,
-    isNumeric
+    isNumeric,
+    generateHash
 };

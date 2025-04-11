@@ -18,7 +18,9 @@
   "homepage": "https://github.com/Greeshmanth1909/upraised_api#readme",
   "dependencies": {
     "@prisma/client": "^6.6.0",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {

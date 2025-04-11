@@ -1,11 +1,12 @@
 const { Router } = require("express");
 const { PrismaClient } = require('@prisma/client');
-const {generateRandomGadgetName, getRandomInt, isNumeric} = require('../utils/utils')
+const {generateRandomGadgetName, getRandomInt, isNumeric} = require('../utils/utils');
+const {authenticateUser} = require("../middlewares/middlewares");
 
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get('/gadgets', async (req, res) => {
+router.get('/gadgets', authenticateUser, async (req, res) => {
     try {
         const status = req.query.status;
         let gadgets;
@@ -36,7 +37,7 @@ router.get('/gadgets', async (req, res) => {
     }
 })
 
-router.post('/gadgets', async (req, res) => {
+router.post('/gadgets', authenticateUser, async (req, res) => {
     try {
         let randomName = generateRandomGadgetName()
         let success = getRandomInt()
@@ -55,7 +56,7 @@ router.post('/gadgets', async (req, res) => {
     }
 })
 
-router.patch('/gadgets', async (req, res) => {
+router.patch('/gadgets', authenticateUser, async (req, res) => {
     try {
         const {name, status, success} = req.body
         console.log(name, status, success);
@@ -112,7 +113,7 @@ router.patch('/gadgets', async (req, res) => {
     }
 });
 
-router.delete("/gadgets", async (req, res) => {
+router.delete("/gadgets", authenticateUser, async (req, res) => {
     try {
         const {name} = req.body;
         if (name == null) {
@@ -135,7 +136,7 @@ router.delete("/gadgets", async (req, res) => {
     }
 });
 
-router.post("/gadgets/:id/self-destruct", async (req, res) => {
+router.post("/gadgets/:id/self-destruct", authenticateUser, async (req, res) => {
     try {
         const { id } = req.params;
         const {confirmationCode} = req.body;
