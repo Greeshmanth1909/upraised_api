@@ -1,6 +1,4 @@
-# Phoenix API
-postman collection: https://www.postman.com/dummy1-0734/workspace/greeshmanth/collection/32134807-2e680fb5-18d1-4259-8c15-ed32a2e26c42?action=share&creator=32134807
-
+# Upraised API
 
 A RESTful API for managing gadgets with authentication.
 
@@ -22,7 +20,41 @@ JWT_SECRET="your_jwt_secret"
 # Default port (8080)
 node src/index.js
 
+
 ```
+
+## Database Setup
+
+### Running PostgreSQL with Docker
+
+1. Make sure Docker is installed on your system
+
+2. Start the PostgreSQL container:
+```bash
+docker-compose up -d
+```
+
+3. Verify the container is running:
+```bash
+docker ps
+```
+
+4. To stop the container:
+```bash
+docker-compose down
+```
+
+5. To view container logs:
+```bash
+docker-compose logs -f
+```
+
+The PostgreSQL container will be available at:
+- Host: localhost
+- Port: 5432
+- Database: devdb
+- Username: postgres
+- Password: devpass
 
 ## Authentication
 
